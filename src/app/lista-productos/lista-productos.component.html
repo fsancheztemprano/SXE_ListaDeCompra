@@ -9,7 +9,7 @@
   <tr *ngFor="let producto of productos index as i;" class="producto">
     <td>
       <input type="checkbox" name="comprado-{{i}}" [(ngModel)]="producto.comprado">
-
+<!--      //opcion volver a comprar al desmarcar el checkbox-->
     </td>
     <td>{{producto.nombre}}</td>
     <td>{{producto.marca}}</td>
