@@ -1,0 +1,8 @@
+table {
+  width: 100%;
+  border: 1px solid black;
+}
+
+.producto:hover {
+  background: #607D8B;
+}

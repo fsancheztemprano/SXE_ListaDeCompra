@@ -1,0 +1,17 @@
+<body>
+<h1>Mi Lista de la Compra</h1>
+<table>
+  <tr>
+    <th>Comprado</th>
+    <th>Nombre</th>
+    <th>Marca</th>
+  </tr>
+  <tr *ngFor="let producto of productos index as i;" class="producto">
+    <td>
+      <input type="checkbox" name="comprado-{{i}}" [ngModel]="producto.comprado">
+    </td>
+    <td>{{producto.nombre}}</td>
+    <td>{{producto.marca}}</td>
+  </tr>
+</table>
+</body>
