@@ -8,10 +8,20 @@
   </tr>
   <tr *ngFor="let producto of productos index as i;" class="producto">
     <td>
-      <input type="checkbox" name="comprado-{{i}}" [ngModel]="producto.comprado">
+      <input type="checkbox" name="comprado-{{i}}" [(ngModel)]="producto.comprado">
+
     </td>
     <td>{{producto.nombre}}</td>
     <td>{{producto.marca}}</td>
   </tr>
 </table>
+
+
+<h2>Productos Comprados:</h2>
+<ul>
+<span *ngFor="let producto of productos;">
+  <li *ngIf="producto.comprado">{{producto.nombre}}</li>
+</span>
+</ul>
+
 </body>
