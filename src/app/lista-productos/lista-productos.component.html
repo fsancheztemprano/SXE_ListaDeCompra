@@ -2,26 +2,24 @@
 <h1>Mi Lista de la Compra</h1>
 <table>
   <tr>
-    <th>Comprado</th>
-    <th>Nombre</th>
-    <th>Marca</th>
+    <th>Lista</th>
+    <th>Por Comprar</th>
   </tr>
-  <tr *ngFor="let producto of productos index as i;" class="producto" (click)="toggleProducto(i)">
+  <tr>
     <td>
-      <input type="checkbox" name="comprado-{{i}}" [(ngModel)]="producto.comprado">
-      <!--      //opcion volver a comprar al desmarcar el checkbox-->
+      <ul>
+        <li *ngFor="let producto of productos index as i;" class="producto" (click)="toggleProducto(i)">
+          {{producto.nombre}}
+        </li>
+      </ul>
     </td>
-    <td>{{producto.nombre}}</td>
-    <td>{{producto.marca}}</td>
+    <td>
+      <ul>
+        <span *ngFor="let producto of productos index as i;">
+          <li *ngIf="producto.comprado" (click)="toggleProducto(i)">{{producto.nombre}}</li>
+        </span>
+      </ul>
+    </td>
   </tr>
 </table>
-
-
-<h2>Productos Comprados:</h2>
-<ul>
-<span *ngFor="let producto of productos index as i;">
-  <li *ngIf="producto.comprado" (click)="toggleProducto(i)">{{producto.nombre}}</li>
-</span>
-</ul>
-
 </body>
