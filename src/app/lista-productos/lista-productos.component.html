@@ -6,10 +6,10 @@
     <th>Nombre</th>
     <th>Marca</th>
   </tr>
-  <tr *ngFor="let producto of productos index as i;" class="producto">
+  <tr *ngFor="let producto of productos index as i;" class="producto" (click)="toggleProducto(i)">
     <td>
       <input type="checkbox" name="comprado-{{i}}" [(ngModel)]="producto.comprado">
-<!--      //opcion volver a comprar al desmarcar el checkbox-->
+      <!--      //opcion volver a comprar al desmarcar el checkbox-->
     </td>
     <td>{{producto.nombre}}</td>
     <td>{{producto.marca}}</td>
@@ -19,8 +19,8 @@
 
 <h2>Productos Comprados:</h2>
 <ul>
-<span *ngFor="let producto of productos;">
-  <li *ngIf="producto.comprado">{{producto.nombre}}</li>
+<span *ngFor="let producto of productos index as i;">
+  <li *ngIf="producto.comprado" (click)="toggleProducto(i)">{{producto.nombre}}</li>
 </span>
 </ul>
 

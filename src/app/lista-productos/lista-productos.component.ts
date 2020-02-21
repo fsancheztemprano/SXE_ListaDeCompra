@@ -16,4 +16,7 @@ export class ListaProductosComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggleProducto(i: number) {
+    this.productos[i].comprado = !this.productos[i].comprado;
+  }
 }
