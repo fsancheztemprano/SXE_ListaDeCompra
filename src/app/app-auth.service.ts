@@ -43,6 +43,20 @@ export class AppAuthService {
       });
   }
 
+  ghlogin() {
+    console.log('github login!');
+    this.myAuth.auth.signInWithPopup(new auth.GithubAuthProvider())
+      .then(user => {
+        console.log('user logado: ', user);
+        this.email = '';
+        this.pass = '';
+        this.authUser = user.user;
+      })
+      .catch(error => {
+        console.log('error en github login: ', error);
+      });
+  }
+
   logout() {
     console.log('logout!');
     this.myAuth.auth.signOut();
