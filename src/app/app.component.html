@@ -1,4 +1,26 @@
-<body>
-<h1>{{title}}</h1>
-<app-lista-productos></app-lista-productos>
-</body>
+<div class="loginDiv" *ngIf="( authComponent.user | async) as obs; else login">{{obs.email}} - {{obs.uid}}
+  <br/><br/>&nbsp;
+  <button class="btn btn-secondary" (click)="authComponent.logout()">OUT</button>&nbsp;
+  <button class="btn btn-primary" (click)="authComponent.altausuario()">ALTA</button>
+  <br/><br/>
+
+
+  <app-lista-productos></app-lista-productos>
+
+</div>
+
+<ng-template #login>
+  <div class="loginDiv">
+    <br/><br/>
+    <button class="btn btn-primary" (click)="authComponent.login()">
+      <i class="far fa-envelope"></i>
+      Email Login
+    </button>
+    <br/><br/>
+    <button class="btn btn-danger" (click)="authComponent.glogin()">
+      <i class="fab fa-google"></i>
+      Google Login
+    </button>
+  </div>
+</ng-template>
+
