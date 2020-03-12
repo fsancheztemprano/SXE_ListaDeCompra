@@ -1,7 +1,12 @@
 <div class="loginDiv" *ngIf="( authComponent.user | async) as obs; else login">{{obs.email}} - {{obs.uid}}
   <br/><br/>&nbsp;
-  <button class="btn btn-secondary" (click)="authComponent.logout()">OUT</button>&nbsp;
-  <button class="btn btn-primary" (click)="authComponent.altausuario()">ALTA</button>
+  <button class="btn btn-secondary" (click)="authComponent.logout()">OUT</button>&nbsp;<br><br>
+  <button class="btn btn-warning" (click)="fireDB.altausuario(obs.email, obs.uid)"><i class="fas fa-check"></i> ALTA
+  </button>
+  <br><br>
+  <button class="btn btn-danger" (click)="fireDB.bajausuario(obs.uid)"><i class="far fa-trash-alt"></i> BAJA</button>
+  <br><br>
+
   <br/><br/>
 
 
