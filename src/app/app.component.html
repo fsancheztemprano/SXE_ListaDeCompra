@@ -1,6 +1,6 @@
-<div class="loginDiv" *ngIf="( authComponent.user | async) as obs; else login">{{obs.email}} - {{obs.uid}}
+<div class="loginDiv" *ngIf="( authService.user | async) as obs; else login">{{obs.email}} - {{obs.uid}}
   <br/><br/>&nbsp;
-  <button class="btn btn-secondary" (click)="authComponent.logout()">OUT</button>&nbsp;<br><br>
+  <button class="btn btn-secondary" (click)="authService.logout()">OUT</button>&nbsp;<br><br>
   <button class="btn btn-warning" (click)="fireDB.altausuario(obs.email, obs.uid)"><i class="fas fa-check"></i> ALTA
   </button>
   <br><br>
@@ -16,20 +16,39 @@
 
 <ng-template #login>
   <div class="loginDiv">
-    <br/><br/>
-    <button class="btn btn-primary" (click)="authComponent.login()">
-      <i class="far fa-envelope"></i>
-      Email Login
-    </button>
-    <br/><br/>
-    <button class="btn btn-danger" (click)="authComponent.glogin()">
-      <i class="fab fa-google"></i>
-      Google Login
-    </button>
-    <br/><br/>
-    <button class="btn btn-danger" (click)="authComponent.ghlogin()">
-      <i class="fab fa-github"></i>
-      Github Login
+
+    <form class="form">
+
+      <input class="form-control" type="text" name="email"
+             placeholder="Escribe tu email ..."
+             [(ngModel)]="authService.email"
+      />
+      <br>
+
+      <input class="form-control" type="password" name="pass"
+             placeholder="Escribe tu contraseña ..."
+             [(ngModel)]="authService.pass"
+      />
+
+      <br/><br/>
+      <button class="btn btn-primary" (click)="signEmail()">
+        <i class="far fa-envelope"></i>
+        Email Login
+      </button>
+      <br/><br/>
+      <button class="btn btn-danger" (click)="authService.glogin()">
+        <i class="fab fa-google"></i>
+        Google Login
+      </button>
+      <br/><br/>
+      <button class="btn btn-danger" (click)="authService.ghlogin()">
+        <i class="fab fa-github"></i>
+        Github Login
+      </button>
+
+    </form>
+    <button class="btn btn-danger" (click)="authService.sendPasswordRequest()">
+      Recover Password
     </button>
   </div>
 </ng-template>

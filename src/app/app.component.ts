@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {AppAuthService} from './app-auth.service';
-import {FireDBService} from './fire-db.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +9,16 @@ import {FireDBService} from './fire-db.service';
 export class AppComponent {
   title = 'Lista de Compra (SXE)';
 
-  constructor(public authComponent: AppAuthService,
-              public fireDB: FireDBService) {
+  constructor(public authService: AppAuthService) {
+  }
+
+  signEmail() {
+    this.authService.login().catch(error => {
+      if (error.code === 'auth/wrong-password') {
+        alert('Contraseña no válida');
+      } else if (error.code === 'auth/invalid-email') {
+        alert('Formato email no válido');
+      }
+    });
   }
 }

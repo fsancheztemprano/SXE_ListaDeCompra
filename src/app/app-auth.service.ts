@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {auth} from 'firebase';
+import * as firebase from 'firebase';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,31 @@ export class AppAuthService {
   pass = '';
   authUser = null;
 
-  constructor(public myAuth: AngularFireAuth) {
+  constructor(public fireAuth: AngularFireAuth) {
   }
 
-  user = this.myAuth.authState;
+  user = this.fireAuth.authState.pipe(map(authState => {
+    console.log('authState: ', authState);
+    if (authState) {
+      this.authUser = authState;
+      return authState;
+    } else {
+      return null;
+    }
+  }));
+
+  loginWithProvider(provider: firebase.auth.AuthProvider) {
+    this.fireAuth.auth.signInWithPopup(provider)
+      .then(user => {
+        console.log('Logged user: ', user);
+        this.email = user.user.email;
+        this.pass = '';
+        this.authUser = user.user;
+      })
+      .catch(error => {
+        console.log('error en login: ', error);
+      });
+  }
 
   /*user = this.miauth.authState.pipe( map( authState => {
   console.log('authState', authState);
@@ -27,38 +49,45 @@ export class AppAuthService {
 */
   login() {
     console.log('login!');
-  }
-
-  glogin() {
-    console.log('google login!');
-    this.myAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+    return this.fireAuth.auth.signInWithEmailAndPassword(this.email, this.pass)
       .then(user => {
-        console.log('user logado: ', user);
+        console.log('User login: email: ', user);
         this.email = '';
         this.pass = '';
         this.authUser = user.user;
       })
       .catch(error => {
-        console.log('error en google login: ', error);
+        console.log('error en login: ', error);
+        if (error.code === 'auth/wrong-password') {
+          alert('Wrong Password');
+        }
       });
   }
 
+
+  //   console.log('google login!');
+  //
+  // }
+  //
+  //
   logout() {
     console.log('logout!');
-    this.myAuth.auth.signOut();
+    this.fireAuth.auth.signOut();
   }
 
-  ghlogin() {
-    console.log('github login!');
-    this.myAuth.auth.signInWithPopup(new auth.GithubAuthProvider())
-      .then(user => {
-        console.log('user logado: ', user);
-        this.email = '';
-        this.pass = '';
-        this.authUser = user.user;
-      })
-      .catch(error => {
-        console.log('error en github login: ', error);
+  //
+  glogin() {
+    console.log('google login!');
+    return this.loginWithProvider(new firebase.auth.GoogleAuthProvider());
+  }
+
+  sendPasswordRequest() {
+    return this.fireAuth.auth.sendPasswordResetEmail(this.email)
+      .then(() => {
+        alert('Recovery email sent');
+      }).catch(error => {
+        alert('Email nor found');
+        console.log('Password request error', error);
       });
   }
 }
