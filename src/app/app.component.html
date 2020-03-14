@@ -1,10 +1,8 @@
 <div class="loginDiv" *ngIf="( authService.user | async) as obs; else login">{{obs.email}} - {{obs.uid}}
   <br/><br/>&nbsp;
   <button class="btn btn-secondary" (click)="authService.logout()">OUT</button>&nbsp;<br><br>
-  <button class="btn btn-warning" (click)="fireDB.altausuario(obs.email, obs.uid)"><i class="fas fa-check"></i> ALTA
-  </button>
   <br><br>
-  <button class="btn btn-danger" (click)="fireDB.bajausuario(obs.uid)"><i class="far fa-trash-alt"></i> BAJA</button>
+  <button class="btn btn-danger" (click)="authService.eliminarCuenta()"><i class="far fa-trash-alt"></i> BAJA</button>
   <br><br>
 
   <br/><br/>
@@ -31,7 +29,12 @@
       />
 
       <br/><br/>
-      <button class="btn btn-primary" (click)="signEmail()">
+      <button class="btn btn-primary" (click)="registrar()">
+        <i class="far fa-envelope"></i>
+        Registrar
+      </button>
+      <br/><br/>
+      <button class="btn btn-primary" (click)="loginEmail()">
         <i class="far fa-envelope"></i>
         Email Login
       </button>
@@ -46,6 +49,7 @@
         Github Login
       </button>
 
+      <br/><br/>
     </form>
     <button class="btn btn-danger" (click)="authService.sendPasswordRequest()">
       Recover Password

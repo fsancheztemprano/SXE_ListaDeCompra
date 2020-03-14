@@ -37,16 +37,7 @@ export class AppAuthService {
       });
   }
 
-  /*user = this.miauth.authState.pipe( map( authState => {
-  console.log('authState', authState);
-  if (!authState) {
-    return null;
-  } else {
-    // …
-    return authState;
-  }
-}) );
-*/
+
   login() {
     console.log('login!');
     return this.fireAuth.auth.signInWithEmailAndPassword(this.email, this.pass)
@@ -55,39 +46,35 @@ export class AppAuthService {
         this.email = '';
         this.pass = '';
         this.authUser = user.user;
-      })
-      .catch(error => {
-        console.log('error en login: ', error);
-        if (error.code === 'auth/wrong-password') {
-          alert('Wrong Password');
-        }
       });
   }
 
-
-  //   console.log('google login!');
-  //
-  // }
-  //
-  //
   logout() {
     console.log('logout!');
     this.fireAuth.auth.signOut();
   }
 
-  //
+
   glogin() {
     console.log('google login!');
     return this.loginWithProvider(new firebase.auth.GoogleAuthProvider());
   }
 
   sendPasswordRequest() {
-    return this.fireAuth.auth.sendPasswordResetEmail(this.email)
+    return this.fireAuth.auth.sendPasswordResetEmail(this.email);
+  }
+
+  eliminarCuenta() {
+    return this.fireAuth.auth.currentUser.delete()
       .then(() => {
-        alert('Recovery email sent');
-      }).catch(error => {
-        alert('Email nor found');
-        console.log('Password request error', error);
+        console.log('Usuario borrado');
+      });
+  }
+
+  register() {
+    return this.fireAuth.auth.createUserWithEmailAndPassword(this.email, this.pass)
+      .then(user => {
+        console.log('Usuario creado: ', user);
       });
   }
 }
