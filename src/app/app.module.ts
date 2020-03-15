@@ -9,11 +9,13 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {RouterModule} from '@angular/router';
+import {CreadorProductosComponent} from './creador-productos/creador-productos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListaProductosComponent
+    ListaProductosComponent,
+    CreadorProductosComponent
   ],
   imports: [
     BrowserModule,

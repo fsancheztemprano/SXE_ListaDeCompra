@@ -1,0 +1,18 @@
+<div>
+  <label>Nombre de producto:
+    <input #nombreProducto/>
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(nombreProducto.value); nombreProducto.value=''">
+    agregar
+  </button>
+</div>
+<h2>Mis Productos</h2>
+<ul class="productos">
+  <li *ngFor="let producto of productos">
+    <span class="badge">{{producto.nombre}}</span>
+    <button class="delete" title="delete hero"
+            (click)="delete(hero)">x
+    </button>
+  </li>
+</ul>
